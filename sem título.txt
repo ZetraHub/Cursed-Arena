@@ -386,7 +386,7 @@ end)
 Options.MyToggle:SetValue(false) -- Inicializa o toggle como falso
 
 -- Cria um novo toggle para ativar ou desativar novos Skills
-local NewToggle = Tabs.AutoSkills:AddToggle("NewSkillToggle", { Title = "Enable Auto Skills", Default = false })
+local NewToggle = Tabs.AutoSkills:AddToggle("NewSkillToggle", { Title = "Enable New Skills", Default = false })
 
 local running = false -- Flag para controlar a execução do loop
 
@@ -399,19 +399,19 @@ NewToggle:OnChanged(function()
         -- Inicia a execução do loop em uma nova thread para não travar a interface
         spawn(function()
             while running do
-                -- Comando: Clap
-                local argsClap = {
+                -- Comando: Clap2
+                local argsClap2 = {
                     [1] = "TodoHandler",
-                    [2] = "Clap",
+                    [2] = "Clap2",
                     [3] = {
-                        ["CF"] = CFrame.new(-1049.3958740234375, 253.12164306640625, 379.428466796875, -0.844409167766571, 0.10090682655572891, 0.5261093378067017, 7.4505797087454084e-09, 0.9820992350578308, -0.18836483359336853, -0.5356988310813904, -0.15905699133872986, -0.8292935490608215),
-                        ["Look"] = Vector3.new(-0.5261093378067017, 0.18836483359336853, 0.8292935490608215),
+                        ["CF"] = CFrame.new(-717.3617553710938, 100.55394744873047, -282.42919921875, -0.1901932656764984, -0.570285439491272, 0.7991251945495605, -7.4505797087454084e-09, 0.8139830827713013, 0.580888569355011, -0.9817466735839844, 0.11048108339309692, -0.15481410920619965),
+                        ["Look"] = Vector3.new(-0.7991251945495605, -0.580888569355011, 0.15481410920619965),
                         ["Air"] = false,
-                        ["Pos"] = Vector3.new(-1049.3958740234375, 253.12164306640625, 379.428466796875)
+                        ["Pos"] = Vector3.new(-717.3617553710938, 100.55394744873047, -282.42919921875)
                     }
                 }
 
-                game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("base"):FireServer(unpack(argsClap))
+                game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("base"):FireServer(unpack(argsClap2))
                 
                 wait(1) -- Espera 1 segundo antes de executar o próximo comando
 
