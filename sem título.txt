@@ -13,14 +13,14 @@ local Window = Fluent:CreateWindow({
 })
 
 local Tabs = {
-    InfoScript = Window:AddTab({ Title = "Info Script", Icon = "scroll" }),
-    AutoFarm = Window:AddTab({ Title = "Auto Farm", Icon = "swords" }),
-    FarmSettings = Window:AddTab({ Title = "Farm Settings", Icon = "list" }),
-    AutoSkills = Window:AddTab({ Title = "Auto Skills", Icon = "sword" }),
-    SwitchFast = Window:AddTab({ Title = "Switch Fast", Icon = "repeat" }),
-    AntiLag = Window:AddTab({ Title = "Anti Lag", Icon = "shield" }),
-    Misc = Window:AddTab({ Title = "Misc", Icon = "clipboard" }),
-    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
+    InfoScript = Window:AddTab({ Title = "∥ Info Script", Icon = "scroll" }),
+    AutoFarm = Window:AddTab({ Title = "∥ Auto Farm", Icon = "swords" }),
+    FarmSettings = Window:AddTab({ Title = "∥ Farm Settings", Icon = "list" }),
+    AutoSkills = Window:AddTab({ Title = "∥ Auto Skills", Icon = "sword" }),
+    SwitchFast = Window:AddTab({ Title = "∥ Switch Fast", Icon = "repeat" }),
+    AntiLag = Window:AddTab({ Title = "∥ Anti Lag", Icon = "shield" }),
+    Misc = Window:AddTab({ Title = "∥ Misc", Icon = "clipboard" }),
+    Settings = Window:AddTab({ Title = "∥ Settings", Icon = "settings" })
 }
 
 local Options = Fluent.Options
@@ -505,91 +505,6 @@ end)
 
 -- Inicializa o toggle como desativado
 Options.MyToggle:SetValue(false)
-
--- Toggle para ativar/desativar o Auto Farm
-local Toggle = Tabs.AutoFarm:AddToggle("MyToggle", {Title = "Auto Farm Random Players", Default = false })
-
-Toggle:OnChanged(function()
-    print("Toggle changed:", Options.MyToggle.Value)
-    if not Options.MyToggle.Value then
-        targetPlayer = nil  -- Reseta o alvo ao desativar
-    else
-        targetPlayer = getRandomPlayer()  -- Seleciona um alvo inicial quando ativado
-    end
-end)
-
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-local targetPlayer = nil
-
--- Função para obter um jogador aleatório
-local function getRandomPlayer()
-    local players = game.Players:GetPlayers()
-    local otherPlayers = {}
-
-    for _, p in ipairs(players) do
-        if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-            table.insert(otherPlayers, p)
-        end
-    end
-
-    return #otherPlayers > 0 and otherPlayers[math.random(1, #otherPlayers)] or nil
-end
-
--- Função para teleportar e alinhar o personagem
-local function teleportToTarget()
-    if targetPlayer and targetPlayer.Character then
-        local targetCharacter = targetPlayer.Character
-        local targetRootPart = targetCharacter:FindFirstChild("HumanoidRootPart")
-
-        if targetRootPart then
-            -- Posiciona o personagem nas costas do jogador alvo
-            local offset = targetRootPart.CFrame * CFrame.new(0, 0, 1)  -- Distância ajustada para mais perto
-            humanoidRootPart.CFrame = CFrame.new(offset.Position)
-
-            -- Faz o personagem ficar virado para o alvo
-            local direction = (targetRootPart.Position - humanoidRootPart.Position).unit
-            humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position, targetRootPart.Position + direction)
-        end
-    else
-        -- Se o jogador alvo não existe, escolhe um novo alvo
-        targetPlayer = getRandomPlayer()
-    end
-end
-
--- Conectar função de morte ao evento de morte dos jogadores
-game.Players.PlayerRemoving:Connect(function(leavingPlayer)
-    if leavingPlayer == targetPlayer then
-        targetPlayer = getRandomPlayer()  -- Troca para um novo jogador se o alvo sair
-    end
-end)
-
--- Conectar evento de eliminação de jogador
-game.Players.PlayerAdded:Connect(function(newPlayer)
-    newPlayer.CharacterAdded:Connect(function(character)
-        character:WaitForChild("Humanoid").Died:Connect(function()
-            if newPlayer == targetPlayer then
-                targetPlayer = getRandomPlayer()  -- Troca para um novo jogador se o alvo for eliminado
-            end
-        end)
-    end)
-end)
-
--- Previne que o personagem caia e não se mova
-humanoid.PlatformStand = true
-humanoidRootPart.Anchored = true  -- Desabilita a física
-
--- Loop para manter o personagem nas costas do jogador alvo enquanto o toggle estiver ativado
-spawn(function()
-    while true do
-        if Options.MyToggle.Value then
-            teleportToTarget()
-        end
-        wait(0.1)  -- Atualiza frequentemente para garantir que o personagem siga o alvo e fique virado para ele
-    end
-end)
 
 SaveManager:SetLibrary(Fluent)
 InterfaceManager:SetLibrary(Fluent)
