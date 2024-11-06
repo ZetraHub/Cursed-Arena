@@ -13,14 +13,14 @@ local Window = Fluent:CreateWindow({
 })
 
 local Tabs = {
-    InfoScript = Window:AddTab({ Title = "∥ Info Script", Icon = "scroll" }),
-    AutoFarm = Window:AddTab({ Title = "∥ Auto Farm", Icon = "swords" }),
-    FarmSettings = Window:AddTab({ Title = "∥ Farm Settings", Icon = "list" }),
-    AutoSkills = Window:AddTab({ Title = "∥ Auto Skills", Icon = "sword" }),
-    SwitchFast = Window:AddTab({ Title = "∥ Switch Fast", Icon = "repeat" }),
-    AntiLag = Window:AddTab({ Title = "∥ Anti Lag", Icon = "shield" }),
-    Misc = Window:AddTab({ Title = "∥ Misc", Icon = "clipboard" }),
-    Settings = Window:AddTab({ Title = "∥ Settings", Icon = "settings" })
+    InfoScript = Window:AddTab({ Title = "║ Info Script", Icon = "scroll" }),
+    AutoFarm = Window:AddTab({ Title = "║ Auto Farm", Icon = "swords" }),
+    FarmSettings = Window:AddTab({ Title = "║ Farm Settings", Icon = "list" }),
+    AutoSkills = Window:AddTab({ Title = "║ Auto Skills", Icon = "sword" }),
+    SwitchFast = Window:AddTab({ Title = "║ Switch Fast", Icon = "repeat" }),
+    AntiLag = Window:AddTab({ Title = "║ Anti Lag", Icon = "shield" }),
+    Misc = Window:AddTab({ Title = "║ Misc", Icon = "clipboard" }),
+    Settings = Window:AddTab({ Title = "║ Settings", Icon = "settings" })
 }
 
 local Options = Fluent.Options
